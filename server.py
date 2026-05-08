@@ -5,12 +5,11 @@ import io, os
 
 app = Flask(__name__)
 
-# Model i specializuar per rroba - shume me i sakt
-session = new_session("u2net_cloth_seg")
+# isnet-general-use - me i ri dhe me i sakt per krejt
+session = new_session("isnet-general-use")
 
 @app.route("/remove-bg", methods=["POST"])
 def remove_bg():
-    # Prano si "image_file" (PhotoUpload) ose "image" (te vjetrit)
     file = request.files.get("image_file") or request.files.get("image")
     if not file:
         return {"error": "No image provided"}, 400
@@ -26,7 +25,7 @@ def remove_bg():
 
 @app.route("/health", methods=["GET"])
 def health():
-    return {"status": "ok", "model": "u2net_cloth_seg"}
+    return {"status": "ok", "model": "isnet-general-use"}
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
